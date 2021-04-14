@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "de597d64-7962-4902-9521-c29c6e5112d1",
+		"name": "TestCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c58b6336-7d4d-4708-9a69-ba563efa099a",
+						"exec": [
+							"const raspuns = pm.response.json()",
+							"pm.globals.set(\"userID\", raspuns.result._id);",
+							"",
+							"pm.test(\"Verific status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"verific response time\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							"",
+							"pm.test(\"Verific daca contine sucess\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Successfully\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"age\": \"{{$randomAge}}\",\n    \"gender\": \"m\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://keytrcrud.herokuapp.com/api/users/",
+					"protocol": "https",
+					"host": [
+						"keytrcrud",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abb43200-b846-4eff-84bb-0ce822d459f1",
+						"exec": [
+							"pm.test(\"Verific status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"verific response time\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							"",
+							"pm.test(\"Verific daca contine sucess\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Successfully\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"dawda\",\n    \"email\": \"Dragos31231@daw.com\",\n    \"age\": \"5\",\n    \"gender\": \"m\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://keytrcrud.herokuapp.com/api/users/{{userID}}",
+					"protocol": "https",
+					"host": [
+						"keytrcrud",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a12e232c-69fd-40e0-bd43-1087fc3f6c58",
+						"exec": [
+							"pm.test(\"Verific status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"verific response time\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://keytrcrud.herokuapp.com/api/users/{{userID}}",
+					"protocol": "https",
+					"host": [
+						"keytrcrud",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc26ed8a-4e18-4cc8-a99c-adba8a646f68",
+						"exec": [
+							"pm.test(\"Verific status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"verific response time\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							"",
+							"pm.test(\"Verific daca contine sucess\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"true\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://keytrcrud.herokuapp.com/api/users/{{userID}}",
+					"protocol": "https",
+					"host": [
+						"keytrcrud",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
